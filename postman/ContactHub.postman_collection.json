@@ -1,0 +1,253 @@
+{
+  "info": {
+    "name": "ContactHub API",
+    "description": "Contact Management System API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        },
+        "description": "Check if the API is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Contacts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"]
+        },
+        "description": "Retrieve all contacts from the database"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Contacts with Search",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts?search=john",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"],
+          "query": [
+            {
+              "key": "search",
+              "value": "john"
+            }
+          ]
+        },
+        "description": "Search contacts by name, email, or phone"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Contacts Sorted by Name",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts?sortBy=name&order=asc",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "name"
+            },
+            {
+              "key": "order",
+              "value": "asc"
+            }
+          ]
+        },
+        "description": "Get contacts sorted by name in ascending order"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Contacts Sorted by Date",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts?sortBy=createdAt&order=desc",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "createdAt"
+            },
+            {
+              "key": "order",
+              "value": "desc"
+            }
+          ]
+        },
+        "description": "Get contacts sorted by creation date (newest first)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Contact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"+1 555-123-4567\",\n  \"message\": \"This is a test message\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"]
+        },
+        "description": "Create a new contact"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Contact (Minimal)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Jane Smith\",\n  \"email\": \"jane@example.com\",\n  \"phone\": \"9876543210\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"]
+        },
+        "description": "Create a contact with required fields only"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Contact (Invalid - Missing Name)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"phone\": \"1234567890\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"]
+        },
+        "description": "Test validation - should return 400 error"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Contact (Invalid Email)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"invalid-email\",\n  \"phone\": \"1234567890\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts"]
+        },
+        "description": "Test email validation - should return 400 error"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Contact",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "REPLACE_WITH_CONTACT_ID",
+              "description": "MongoDB ObjectId of the contact to delete"
+            }
+          ]
+        },
+        "description": "Delete a contact by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Contact (Invalid ID)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts/invalid-id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts", "invalid-id"]
+        },
+        "description": "Test invalid ID handling - should return 400 error"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Contact (Not Found)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/contacts/507f1f77bcf86cd799439011",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "contacts", "507f1f77bcf86cd799439011"]
+        },
+        "description": "Test 404 handling - valid ID format but doesn't exist"
+      },
+      "response": []
+    }
+  ]
+}
