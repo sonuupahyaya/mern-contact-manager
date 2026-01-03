@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL =
   import.meta.env.MODE === 'production'
-    ? import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
     : 'http://localhost:5000/api';
 
 const api = axios.create({
@@ -14,19 +14,19 @@ const api = axios.create({
 });
 
 export const contactService = {
-  getAll: async (params = {}) => {
-    const response = await api.get('/contacts');
-    return response.data;
+  getAll: async () => {
+    const res = await api.get('/contacts');
+    return res.data;
   },
 
-  create: async (contactData) => {
-    const response = await api.post('/contacts', contactData);
-    return response.data;
+  create: async (data) => {
+    const res = await api.post('/contacts', data);
+    return res.data;
   },
 
   delete: async (id) => {
-    const response = await api.delete(`/contacts/${id}`);
-    return response.data;
+    const res = await api.delete(`/contacts/${id}`);
+    return res.data;
   },
 };
 
